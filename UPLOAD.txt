@@ -1,0 +1,12 @@
+FACEBENCH v2.0.0 — mbparks.com server package
+
+1. Create a facebench directory inside your website public/document root.
+2. Upload/extract all ZIP contents into that directory, preserving assets/ and vendor/.
+3. index.html must be directly inside facebench/, not an extra nested folder.
+4. Open https://mbparks.com/facebench/ (include the trailing slash).
+
+No terminal commands, Python server, npm, Docker, database or build step are needed on your web host.
+JavaScript modules use .js filenames for standard static-host MIME support.
+Keep every supplied file. Licenses and README are included. No developer dependencies or test folders are included.
+If updating an older installation, hard-refresh once. Export existing projects as JSON before clearing site data.
+This package has not been deployed or tested against your live server.

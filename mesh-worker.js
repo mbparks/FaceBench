@@ -1,0 +1,2 @@
+import {build,laserStack} from './engine.js';
+self.onmessage=async e=>{let {id,project,action,options}=e.data;try{let result=action==='stack'?await laserStack(project):await build(project,options||{}),transfer=[];let meshes=[result.mesh,...(result.coupons||[]).map(c=>c.mesh),...(result.insets||[]).map(c=>c.mesh)].filter(Boolean);for(let m of meshes)transfer.push(m.positions.buffer,m.triangles.buffer,m.triColor.buffer);self.postMessage({id,result},transfer)}catch(error){self.postMessage({id,error:error.message})}};

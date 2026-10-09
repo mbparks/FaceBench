@@ -1,26 +1,38 @@
-# FACEBENCH v2.0.0 validation
+# FACEBENCH v3.0.0 validation
 
-Executed in the development environment on 2026-10-08. These results concern software and reference geometry, not physical fit certification.
+Software and reference-geometry checks executed in the development environment on 2026-10-09. These results do not establish real-browser behavior or physical fit.
 
-## Passed
+## Automated checks
 
-- WASM solid engine: blank, preserved CAD carrier, four mounting coupons, raised outline fonts and beveled plate all return NoError.
-- CAD carrier: one component; 52,946 triangles; bounds X ±78 mm, Y ±63.0525 mm, Z −6.700672 to +2.3 mm.
-- Independent binary-STL parsing and vertex welding: CAD carrier and decorated sample have zero edges with an incidence other than two, positive signed volume and expected bounds. This independently checks closed surfaces and winding.
-- Stencil O: unbridged cut produces disconnected material; a 2 mm bridge reconnects it to one component.
-- Overlapping through-cuts merge into one hole contour; positive kerf expands the outside contour. Protected carrier cuts remain valid solids.
-- Grayscale image builds stepped solid relief; inverted threshold relief works. Engraved inlay exports carry the correct assembly height.
-- 3MF ZIP: required OPC files, millimeter units, material colors, welded vertices, two objects for a panel plus inlay and inlay vertex-height placement. XML/package checks do not prove every slicer's interpretation.
-- SVG curve import and flattened closed outlines; rejection of scripts, linked images, event attributes and open paths. Project path-part validation rejects invalid coordinates.
-- Laser spacer/retainer geometry and four registration guides; magenta guide layer and mirrored rear exports.
-- v1 project schema migrates to v2.
-- jsdom integration using the actual application scripts and actual solid engine: sample load, undo/redo, numeric inspector, duplicate, named baseline, 3D renderer handoff, SVG/3MF/manufacturing ZIP, export button reset and local autosave. Canvas and WebGL rendering were stubbed; this is a DOM workflow test, not a browser rendering test.
-- Runtime asset inventory and service-worker manifest refer to local existing files; JavaScript syntax checks.
+- Original WASM engine: blank, preserved CAD carrier, four mounting coupons, raised outline fonts and bevels return `NoError`.
+- CAD carrier remains one component with 52,946 triangles; bounds X ±78 mm, Y ±63.0525 mm, Z −6.700672 to +2.3 mm.
+- Fabrication regression: 3MF package structure, millimeter units, colors, welded vertices and inlay placement; stencil continuity; merged cuts; kerf compensation; grayscale/inverted image relief; protected carrier; mirrored rear drawings; flattened SVG curves and rejection of active SVG content.
+- Schema 1 and 2 migrate to schema 3. New stacks and recipes round-trip through portable JSON. Invalid stamp data is rejected.
+- All six pattern families generate reproducible contours and valid one-component raised solids. Linked symmetry works for separated and overlapping copies and preserves EvenOdd holes. Mirrored hit testing follows the source geometry.
+- Remix is deterministic; independent category locks preserve data.
+- Boolean operations produce expected areas: union 600 mm², subtraction 200 mm² and intersection 200 mm² for the test rectangles. Border generation remains valid.
+- Tracing removes a one-pixel speckle and preserves the expected 100 mm² region. Laser raster SVG includes the clearance/remaining-material clip; private clip contours are not exported as DXF operations.
+- Arc, ring, wave and path text produce valid solids; zero-angle arcs remain straight; outlined text retains its contours when converted.
+- Texture relief reaches the requested height and remains one connected solid. A full covering clearance zone removes all decoration without removing the blank.
+- Material stack thickness/order and exploded offsets are checked. Per-sheet files include STL/SVG/DXF/JSON with an order CSV and assembly notes.
+- Clearance, kerf and relief coupons produce valid solids. The five clearance plugs each have the expected 14 × 14 × 1.5 mm volume.
+- DOM integration uses actual application scripts and the actual WASM geometry engine: existing editor/undo/inspector/export/autosave workflows; patterns, symmetry, stamps, four Remix cards, brush patches and a pointer-painted stroke, material sheets, calibration records/export, zones and starters. Re-editing moved/resized/rotated Boolean results and moved traces preserves their placement. Text dialogs and physical-stack ZIP round trips are exercised.
+- Dialog IDs are unique; focus-return wiring, toolbar mode states, multi-selection controls and export button recovery are checked.
+- Runtime asset inventory and service-worker cache logic are checked locally, including per-path cache isolation and current-cache lookup. These are logic checks, not an offline browser test.
 
-## Not verified
+## Independent binary STL checks
 
-- Real-browser visuals, actual WebGL drawing/OrbitControls, device responsiveness, assistive-technology behavior and service-worker offline reload.
-- IndexedDB persistence across browser restarts (the DOM harness exercised localStorage fallback).
-- Actual slicer/cutter import, printer material assignments, fabrication settings, heat behavior, airflow, magnet retention or fit on a Steam Machine.
+A separate NumPy parser welds exact output vertices, checks edge incidence, computes signed volume and reads bounds. The CAD carrier, decorated text sample, v3 texture-relief sample and registered material-sheet sample all have zero edges used by anything other than two triangles, positive signed volume and expected bounds.
 
-Use mounting coupons and review dimensions/operations in manufacturing software before making the entire panel. Complexity limits are safeguards, not performance guarantees on every device.
+| Model | Triangles | Non-two-use edges |
+| --- | ---: | ---: |
+| CAD carrier | 52,946 | 0 |
+| Decorated text sample | 6,222 | 0 |
+| Texture relief | 732 | 0 |
+| Material sheet | 412 | 0 |
+
+## Verification limits
+
+The DOM harness uses dialog/Canvas/WebGL shims and localStorage fallback. It does not verify pixels, actual GPU rendering, mobile layout, assistive technology, IndexedDB persistence or service-worker reload in a browser.
+
+Actual slicer/cutter import, extruder/material assignments, raster clipping support, fabrication settings, lighting behavior, airflow, magnet retention and Steam Machine fit remain unverified. Use the coupon tools and review exported operations before fabrication. Complexity caps do not guarantee performance on every device.

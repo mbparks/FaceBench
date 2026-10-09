@@ -1,6 +1,6 @@
 {
   "name": "facebench",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "private": true,
   "description": "Self-hosted Steam Machine faceplate design and fabrication instrument",
   "license": "GPL-3.0-or-later",
@@ -9,11 +9,11 @@
     "node": ">=22"
   },
   "scripts": {
-    "test": "node tests/engine-check.mjs && node tests/fabrication-check.mjs && node tests/integration.cjs",
+    "test": "node tests/engine-check.mjs && node tests/fabrication-check.mjs && node tests/creative-check.mjs && node tests/integration.cjs && node tests/release-check.mjs",
     "test:stl": "python3 tests/check-stl.py"
   },
   "devDependencies": {
-    "jsdom": "22.1.0",
+    "jsdom": "23.0.0",
     "jszip": "3.10.1"
   }
 }

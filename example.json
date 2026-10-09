@@ -1,5 +1,5 @@
 {
-  "schema": 2,
+  "schema": 3,
   "name": "First face",
   "width": 156,
   "height": 126.105,
@@ -12,7 +12,7 @@
   "color": "#e2d6bc",
   "objects": [],
   "assumptions": "CAD-derived dimensions are reference geometry. Physical fit, magnet hardware and airflow require testing.",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "mounting": "none",
   "precision": 0.03,
   "kerf": 0,
@@ -27,5 +27,10 @@
   "laserStyle": "front",
   "baselines": [],
   "customFonts": {},
-  "notes": ""
+  "notes": "",
+  "stack": [],
+  "keepouts": [],
+  "calibrations": [],
+  "stamps": [],
+  "finish": "matte"
 }

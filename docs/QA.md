@@ -1,0 +1,107 @@
+# Verification record — 1.6.0-rc.1
+
+**91 automated checks pass** (`qa/v160-test-results.txt`). Fifteen new checks cover exact feature/grid/free snapping, rotated rectangles, circular/rounded edges, rear-body targets, axis constraints, geometry-cache invalidation after a drag, valid/invalid polygon area and perimeter, square-unit conversion, duplicate clicks, first-point markers, live previews, closure, point undo, exact entry, Escape, cancellation and pan. Application-event contracts verify active controls and that measurements do not change project data. Native browser behavior is not simulated by these contracts.
+
+Reviewed `qa/v160-first-point.png`, `qa/v160-distance-preview.png` and `qa/v160-area.png`, all generated from the actual canvas renderer using `scripts/measurement-fixture.mjs`. The area fixture is 135 × 70 mm: 9450 mm² and 410 mm perimeter. Rear presentation uses the same physical values. These images are static renderer output, not browser screenshots.
+
+Browser acceptance remains pending. In a supported browser, verify active styling and control wrapping in all themes; hovering and clicking exact features; live first-point feedback; distance, area and keyboard completion; first-point closure and double-click; touch/pinch cancellation; Space/middle-button pan; switching panels; and offline loading of the new module. Imported curve snap targets are endpoints/midpoints; curved area outlines remain polygon approximations.
+
+## Previous verification
+
+# Verification record — 1.5.0-rc.1
+
+**76 automated checks pass** (`qa/v150-test-results.txt`), including 12 new precision-placement checks. They cover rotated circles, rectangles and rounded rectangles; compound holes and exact Bézier extrema; all panel edges and four relative directions; reference preservation; measurement bases; inch input; imported bounds; coincident centres; invalid values; object/layer locks; Undo; JSON persistence; rehearsal protection; and dimension click/keyboard/pointer event contracts.
+
+`qa/v150-front-precision.png` and `qa/v150-rear-precision.png` are reviewed static renders of actual canvas geometry. They show mirrored dimensions with matching values. Reproduce with `scripts/precision-fixture.mjs`; the example project is `examples/precision-placement.json`. Fabrication fixtures contain only physical artwork, not dimension overlays.
+
+Browser acceptance remains pending under the existing Sites restriction. In a supported browser, verify: edit all four border inputs; switch units and measurement bases; apply relative gaps with and without centre alignment; click/keyboard-edit dimensions; verify no drag begins on a dimension; Undo/Redo; reload saved positions; rear view; small viewports; all themes; offline module loading. Curved/irregular border distances intentionally use outer bounds.
+
+## Previous verification
+
+# Verification record — 1.4.3-rc.1
+
+**64 existing automated checks pass** (`qa/v143-test-results.txt`). The actual canvas renderer was exercised with labels enabled on both faces. After excluding physical position and rotation, both rendered label elements have identical attributes: dark `#253d2c` fill, no outline, the same text size and alignment. Results are recorded in `qa/v143-label-appearance.json`.
+
+The generated front/rear SVGs were rasterized and visually reviewed (`qa/v143-front-labels.png` and `qa/v143-rear-labels.png`). Both use the plain front-label appearance. These are static canvas renders, not browser UI screenshots. Real-browser QA remains pending under the existing Sites restriction. The two fabrication checkboxes and export behavior are unchanged.
+
+## Previous verification
+
+# Verification record — 1.4.2-rc.1
+
+**64 automated checks pass** (`qa/v142-test-results.txt`). The label regression tests now require exactly two per-component checkboxes and actual front/rear manufacturing output. All four combinations, legacy master migration, malformed flags, saved/undoable choices, rear-only path content, mirrored anchors with readable glyphs, declared SVG origins, export-layer inclusion, PDF and automatic per-face ZIP contents are covered. New parts are front-only by default.
+
+`qa/v142-rear-labels.svg` and `qa/v142-rear-labels.pdf` were rendered and visually reviewed. The PDF contains the three selected labels at the reflected positions, without rear-body diagrams, holes or auto-generated references; no alignment crosshairs are placed inside the panel. `scripts/label-fixture.mjs` reproduces the example. Rasterization is a static export check, not browser UI QA.
+
+Real-browser acceptance remains open under the Sites workflow restriction. The browser journey was updated for the two checkbox names, persistence and a rear SVG download from the normal Fabricate controls. Verify the same behavior in a supported browser before stable release, including PNG and ZIP downloads, keyboard focus and mobile layout.
+
+## Historical verification (superseded behavior where noted)
+
+# Verification record — 1.4.1-rc.1
+
+2026-10-09. **64 automated tests pass** (`qa/v141-test-results.txt`). Seven new checks cover all four front/rear combinations, per-component gating, legacy defaults, malformed data rejection, JSON persistence, cut/artwork separation, mirrored asymmetric geometry, readable rotated glyphs, baseline/fingerprint changes, rear PDF/ZIP export and UI controls/undo.
+
+Actual canvas geometry was serialized through `renderCanvas`, rasterized and visually reviewed in `qa/labels-front-canvas.png` and `qa/labels-rear-canvas.png`. The rear PDF was rendered with Poppler and reviewed in `qa/labels-rear-assembly.png`: references and text read normally, with physically mirrored placement and a calibration square. These are static renderer/export checks, not browser UI screenshots. The example is `examples/clean-front-labeled-rear.json` and its generator is `scripts/label-fixture.mjs`.
+
+Real-browser acceptance remains unverified under the Sites skill restriction documented below. The prepared browser journey now checks toolbar switches, rear labels/references, undo, reload persistence and rear PDF download. Also verify individual component flags, keyboard operation, narrow-screen toolbar wrapping and label changes while viewing multiple panels. Rehearsal disables design-setting changes.
+
+## Prior verification records
+
+# Verification record — 1.4.0-rc.1
+
+Date: 2026-10-09. Tests use the copied server distribution. **57 automated tests pass** (`qa/v14-test-results.txt`): the prior 50 plus six catalog checks and one additional UI flow contract.
+
+- All 267 unique definitions validate, embed without mutating the catalog, survive project JSON round-trips, and export every opening through SVG. The original ten starter geometries/terminals are preserved, and the two sourced definitions retain their provenance.
+- All 255 new generic cut patterns have no sampled internal overlaps and stay within front-face bounds. Geometry thumbnails scale to their part dimensions. This validates template consistency, not compatibility with purchased hardware.
+- A fan pattern, long fader, D-sub connector and perforated vent pass actual PDF generation and frozen-ZIP round-trip checks.
+- Search exercises multi-word tags, dimensions, categories, sourced/custom/favorite scopes, no-match results and legacy metadata. The UI contract checks details without mutation, placement with preserved filters, undo, favorites and pagination.
+- Optional metadata rejects malformed tags and unsupported visuals; the new module is included in the offline cache. The same 50 earlier tests still pass.
+
+Browser acceptance remains an open release gate. The Sites skill requires skipping browser QA without its supported control-browser skill and prohibits a substitute browser path. No actual UI layout, pointer, browser storage, offline reload or native download checks were run. The prepared browser journey includes the new catalog flow for a supported environment.
+
+## New browser acceptance checklist
+
+1. At desktop and phone widths, browse each category and inspect full names/dimensions in all three themes. Check scrolling and focus outlines.
+2. Search `USB type C`, inspect Details, favorite the part, place it twice, then undo. Confirm search/category remain selected.
+3. Filter Favorites, reload, and confirm the favorite is retained. Remove it and verify the empty state. Confirm no project-dirty state from favorites alone.
+4. Use only the keyboard to change filters, open/close Details, add a favorite, load more and place a component. Confirm focus remains useful.
+5. Save, reload, export/reimport projects containing multi-hole templates, and edit/save a custom category and tags.
+6. Load once online, reload offline, browse all categories and open Full catalog. Exercise the explicit service-worker update with an older project present.
+
+## Previous release evidence (historical)
+
+# Verification record — 1.3.0-rc.1
+
+Date:2026-10-09. Node24.19.0/Linux x64. Tests import the same modules copied into the server distribution.
+
+## Passed
+
+- **50 automated tests**:17 original model/export,10 UI-contract,4 storage-transaction contract,4 authoring geometry/legends,6 catalog/revisions,6 interchange,3 XML-tree SVG integration. Result: `qa/v13-test-results.txt`.
+- **Native companion parsers:** PINNOTE2.0.0 and REFLEX1.1.0-rc.1 accept generated native files. Parsed PINNOTE assignments round-trip exactly. COPPERBENCH1.7.1 validates the imported native fixture. Source hashes and results: `qa/companion-parsers.json`.
+- **Physical file geometry:** regenerated10 mm circle fixture and20 mm calibration square independently measured with PyMuPDF; maximum opening bounds error about0.0000025 mm. Script: `scripts/check-output-dimensions.py`; report:`qa/independent-dimensions.json`.
+- **Visual export review:** Poppler rendered the v1.3 studio-panel PDF; labels, legends, outlines and calibration area were inspected. `qa/v13-panel.png` is a rendered PDF, not an application screenshot.
+- **Performance:**100 components/200 artwork, five Node measurements per operation. `qa/performance.json` holds current values. No browser frame-rate claim.
+
+XML integration uses the dev-only xml-js parser to supply an XML-tree DOM contract. UI tests use a minimal DOM contract; storage tests use a deterministic transaction fixture. They do not simulate layout, pointer delivery, browser security or native IndexedDB. Earlier verification history is in QA-v1.0-history.md.
+
+## Browser gate remains open
+
+The previous preview failed to mount proc and lacked its configured Chromium executable. On this update, the managed environment has no supported control-browser skill; current Sites guidance says to skip browser QA and prohibits launching a substitute server/browser. No browser checks are claimed.
+
+The updated browser journey script includes definition-table edits, controller presets and a native handoff download. It is ready to run but was not executed here. Complete these checks before declaring stable1.3.0:
+
+1. Cold start on `/interfacebench/`: blank panel → component → exact position → export in under a minute. Explore examples without overwriting a saved project.
+2. Drag/marquee/pan/pointer-anchored zoom; one drag = one undo; Escape cancellation; multi-touch/pinch and keyboard alternatives; rulers/snap/alignment and lock behavior.
+3. Custom compound openings, photos, SVGs and raster images; library save/import/replace with assignments; no change to old instances.
+4. Actual IndexedDB reload; multiple tabs; induced quota/blocked-storage failures; recovered copies; no successful status on a failed save.
+5. Native file dialogs, JSON/library import round trips, rejected executable SVG, unsupported geometry diagnostics and all download paths.
+6. Wiring sorting/search, exclusive conflicts, valid shared buses, unknown compatibility, voltage-domain/interface notes; reference renaming preserves identities.
+7. Rehearsal press/release/toggle/encoder/pot operations, target display/indicator, rule order, reset and geometry protection.
+8. Matching all selected outputs from one frozen revision; transparent PNG physical dimensions; image-bearing PDFs; nominal vs compensated geometry; A4 overlap alignment on an actual printed calibration fixture.
+9. Browser export history survives reload; camera/theme/selection changes do not stale exports; relevant geometry/artwork/wiring changes do.
+10. Desktop, tablet and phone layouts, enlarged browser zoom, all three themes, reduced motion, full keyboard navigation, modal focus, accessible labels and status announcements. Review screenshots; DOM-contract checks cannot replace this.
+11. HTTPS/localhost installation in a static subdirectory, offline reload after caching, update waiting/activation without data loss and no hidden external requests.
+12. Repeat the 100/200 performance fixture in an actual named browser, measure drag/zoom and save behavior, and record machine/browser details.
+
+13. v1.1: edit/delete/add table rows, rename terminals without losing assignments, exercise invalid inputs without losing drafts, import nested transforms/curves and inspect fabrication scale; change tick legends and verify SVG/PDF/PNG results.
+14. v1.2: load all presets, save a new family and successive revisions, compare/update an older instance and undo; export/import v2 libraries and reject revision conflicts without partial writes.
+15. v1.3: open native handoffs in the companion browsers; edit/return wiring; reject mismatched provenance, changed controllers and unsupported topology. Import Copperbench mounting holes/slots/platform patterns alongside an existing panel, review counts, apply, save/reload and undo.

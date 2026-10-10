@@ -1,40 +1,76 @@
 # Changelog
 
-## 3.0.0 — 2026-10-09
+## 1.6.0-rc.1 — 2026-10-09
 
-Completed the creative-development batches after v2.1:
+- Explicit Measure active state, crosshair, numbered points and live distance/coordinate feedback.
+- Exact feature and grid snapping, axis constraint, free-point override and numeric coordinate entry.
+- Multi-click polygon area/perimeter with finish, close-to-start, double-click, point undo and invalid-outline handling.
+- Measurement gestures preserve project geometry and support rear view and pan without adding points.
+- 91 automated checks pass; static measurement renders reviewed. Browser acceptance remains pending.
 
-- Six editable pattern families, linked axis/radial symmetry and reproducible Remix with four candidates, independent locks and favorites.
-- Local image tracing, speckle cleanup, simplification, Boolean operations, offsets/borders and source-preserving recipes. Re-editing preserves transformed placement and fabrication properties.
-- Curved/outlined text and portable personal stamps. Text remains editable; saved paths remain available when reopening the dialog.
-- Four relief brushes, per-stroke undo/erase, numeric test patches and illustrative material finishes.
-- Physical sheet assignments, thickness/order/registration controls, exploded preview and per-sheet STL/SVG/DXF/JSON exports.
-- Labeled clearance/kerf/relief calibration and project records; window, diffuser and clearance-zone tools; three editable starter designs.
-- Schema 3 with v1/v2 migration, bounded recipes, complexity limits and worker recovery after timeout.
-- Shared contour processing for conversion and exports; overlapping symmetry unions correctly and preserves holes. Raster SVG respects clearance zones; reports/BOM include physical sheets and calibration.
-- Per-installation offline cache names, all new runtime assets bundled, expanded geometry/DOM/topology checks and server/GitHub release packages.
 
-Real-browser rendering, offline reload, slicer/cutter interoperability and physical fit remain unverified; see VALIDATION.md.
+## 1.5.0-rc.1 — 2026-10-09
 
-## 2.1.0
+- Exact border placement and horizontal/vertical gaps from a fixed reference component.
+- Front face, mounting cutouts, rear body and mounting reference measurement bases, with rotated geometry and exact curve extrema.
+- Editable canvas dimensions, keyboard activation and two-component reference-distance placement.
+- Unit-aware inputs, locked-object protection, autosave, import/export and Undo/Redo through the existing model.
+- 76 automated checks pass; static front/rear renders reviewed. Browser acceptance remains pending.
 
-- Focused canvas workspace with Create, Layers and contextual Inspector.
-- Blank setup, Project, Workspace and Export dialogs; consolidated manufacturing choices and in-dialog status.
-- Empty-state entry points, quick swatches, clearer tool modes and canvas shortcuts.
-- Multi-selection common edits, locked-layer handling, selection-aware buttons and focus restoration.
-- Repaired malformed vent-row menu; retained baseline selection and export-button markup.
-- Updated responsive panel behavior, local offline asset manifest and creative-tool proposals.
-- DOM workflow validation passes; real-browser visual/physical validation remains outstanding.
 
-## 2.0.0
+## 1.4.3-rc.1 — 2026-10-09
 
-- CAD-derived carrier, protected mounting regions and four fit coupons.
-- Closed SVG/freehand drawing, outline fonts and font import.
-- Precision editing, grouping, alignment/distribution and layer controls.
-- Stepped grayscale relief, fitted inlays, bevels and stencil bridges.
-- Color 3MF, merged laser contours, kerf compensation and mirrored laminate carrier drawings.
-- Complete manufacturing package, printable report, BOM and assembly instructions.
-- v1 JSON migration, local autosave/recovery, named baselines and offline asset manifest.
-- Static server package and GitHub repository packaging; no production build step.
+- Rear component labels now use the same plain text color, size and styling as front labels. Removed the rear-only light fill and dark outline.
+- The two fabrication checkboxes, physical rear positioning and per-face output behavior are unchanged.
 
-See VALIDATION.md for tested behavior and remaining browser/physical checks.
+## 1.4.2-rc.1 — 2026-10-09
+
+- Corrected label scope: exactly two per-component checkboxes, Label on Front and Label on Rear, control manufacturing on either or both faces.
+- Removed panel master switches and the rear assembly-guide mode. Previous masters migrate into the component flags once; no hidden veto remains.
+- Rear fabrication emits only selected outlined label paths at reflected physical positions with readable glyphs. No rear bodies, cutouts or automatic reference numbers are added.
+- ZIPs automatically contain distinct front/rear fabrication files for the selected formats. Individual SVG/PDF/PNG uses the Front/Rear face selected above the canvas.
+- New parts default to front labels only. All 64 regression tests pass; rear SVG/PDF output was rendered and reviewed. Browser QA remains pending.
+
+## 1.4.1-rc.1 — 2026-10-09
+
+- Added independent front/rear component-label switches per panel and per component; persisted in project JSON, undo/redo and artwork freshness.
+- Front fabrication SVG/PDF/PNG omit disabled front labels. Separate rear assembly SVG/PDF exports mirror geometry while keeping text readable, including component references.
+- Rear assembly guides can be bundled in fabrication ZIPs with explicit orientation metadata; independent front artwork is omitted.
+- Rear label contrast improved; schematic contact markers now fit within rear-body bounds for dense connectors.
+- Added a clean-front/labeled-rear example and seven regression tests. 64 tests pass; actual canvas SVG and assembly PDF geometry were rendered and visually reviewed. Actual browser acceptance remains open.
+
+## 1.4.0-rc.1 — 2026-10-09
+
+- Expanded built-in library from 12 to 267 parts in 14 categories: 255 additional generic planning definitions with openings, rear/access envelopes and terminals where relevant.
+- Added category/source/favorites filters, word-based multi-term search, 24-item incremental browsing, preserved search on placement and saved favorites.
+- Added dimension/offset/provenance details before placement; custom part categories and search tags; scalable geometry thumbnails and physical-outline visuals.
+- Bundled an offline catalog reference and generated exact inventory documentation. Existing definitions remain embedded and legacy imports remain supported.
+- 57 automated tests pass, including all-definition placement, JSON/exports, internal cut-pattern geometry, complex PDF/ZIP output and library browsing contracts.
+- Still a release candidate: supported real-browser QA remains unavailable. No deployment or hardware validation claimed.
+
+## 1.3.0-rc.1 — 2026-10-09
+
+Development continued in v1.1, v1.2 and v1.3 implementation batches. Browser release acceptance remains open.
+
+### v1.1 — authoring
+- Direct opening and terminal tables; editing terminal names preserves wiring identities.
+- Safe SVG M/L/H/V/C/S/Q/T/A/Z paths, ellipses and nested affine transforms. Raw XML and remote content never enter the editor DOM.
+- Rotary/linear scale legends with numeric range, custom labels, prefix/suffix, tick spacing/lengths and outlined export text.
+- Fixed numeric edits ignoring layer locks; reject unclosed contours in compound component openings.
+
+### v1.2 — parts and controllers
+- Manufacturer-sourced E-Switch PV6F240SS-341 and PV7F2Y0SS-335; physical verification and assumed clearances remain explicit.
+- UNO R4 Minima and Nano Every declared-capability profiles.
+- Versioned reusable part families, revision notes, comparison, explicit update and compatible assignment retention.
+- Atomic library imports reject conflicting immutable revisions. Project schema3 migrates schemas1/2; libraries read v1/v2.
+
+### v1.3 — companion handoffs
+- PINNOTE 2.0.0 native schema1 exports with precise terminal/controller bindings; returned assignments update wiring after review.
+- REFLEX 1.1.0-rc.1 native schema5 device inventory and eligible UNO assignments; behavior is explicitly omitted and retained in the source backup.
+- COPPERBENCH 1.7.1 schema5 mounting-template import, including embedded mounting holes, slots and side/rotation transforms.
+- Conversion reports and source JSON in every handoff ZIP; imports are undoable and preserve existing projects.
+- Fixed imported mounting-hole reference collisions with existing panels.
+
+## 1.0.0-rc.1 — 2026-10-08
+
+Initial complete Define → Arrange → Connect → Rehearse → Fabricate implementation; 28 automated checks, independent SVG/PDF geometry verification, static server/repository ZIPs. Browser preview infrastructure blocked acceptance.

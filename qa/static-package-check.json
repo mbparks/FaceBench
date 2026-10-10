@@ -1,0 +1,8 @@
+{
+  "version": "1.6.0-rc.1",
+  "authoredFilesMatchDist": true,
+  "runtimeModules": 16,
+  "allModulesCached": true,
+  "missingLocalImports": [],
+  "publicDeployment": false
+}

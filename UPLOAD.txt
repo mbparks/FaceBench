@@ -1,4 +1,4 @@
-FACEBENCH v3.0.0 — mbparks.com server package
+FACEBENCH v3.1.0 — mbparks.com server package
 
 1. Create a facebench directory inside your website public/document root.
 2. Upload/extract all ZIP contents into that directory, preserving assets/ and vendor/.
